@@ -41,24 +41,12 @@ namespace ProjAPI.Migrations
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Date_positive = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Date_recovery = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Arr_vacId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Persons", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Persons_Vaccination_Arr_vacId",
-                        column: x => x.Arr_vacId,
-                        principalTable: "Vaccination",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Persons_Arr_vacId",
-                table: "Persons",
-                column: "Arr_vacId");
-        }
+                }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {

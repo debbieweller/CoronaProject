@@ -30,8 +30,6 @@ namespace ProjAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("Arr_vacId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Cell_phone")
                         .IsRequired()
@@ -76,8 +74,6 @@ namespace ProjAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Arr_vacId");
-
                     b.ToTable("Persons");
                 });
 
@@ -102,17 +98,6 @@ namespace ProjAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Vaccination");
-                });
-
-            modelBuilder.Entity("ProjAPI.Person", b =>
-                {
-                    b.HasOne("ProjAPI.Vaccination", "Arr_vac")
-                        .WithMany()
-                        .HasForeignKey("Arr_vacId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Arr_vac");
                 });
 #pragma warning restore 612, 618
         }
