@@ -1,0 +1,90 @@
+<div>מערכת ניהול קורונה לקופת חולים</div>
+<button (click)="initNewPerson()">צור חבר חדש</button>
+<table>
+  <thead>
+    <th>שם פרטי</th>
+    <th>שם משפחה</th>
+    <th>תעודת זהות</th>
+    <th>עיר</th>
+    <th>רחוב</th>
+    <th>מספר בית</th>
+    <th>תאריך לידה</th>
+    <th>טלפון</th>
+    <th>טלפון נייד</th>
+    <th>תמונה</th>
+    <th>מועד קבלת תוצאה חיובית</th>
+    <th>מועד החלמה מקורנה</th>
+    <th>חיסונים</th>
+    <th></th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of persons">
+      <td>{{ p.f_name }}</td>
+      <td>{{ p.l_name }}</td>
+      <td>{{ p.id }}</td>
+      <td>{{ p.city }}</td>
+      <td>{{ p.street }}</td>
+      <td>{{ p.street_num }}</td>
+      <td>{{ p.date_birth | date : "MM/dd/yyyy" }}</td>
+      <td>{{ p.phone }}</td>
+      <td>{{ p.cell_phone }}</td>
+      <img [src]="p.picture" alt="Image" style="width: 32px; height: 32px" />
+
+      <td>{{ p.date_positive | date : "MM/dd/yyyy" }}</td>
+      <td>{{ p.date_recovery | date : "MM/dd/yyyy" }}</td>
+
+      <td>
+        <button (click)="ToShowVaccinationTable(p.id ?? -1)">חיסונים</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-container *ngIf="showVaccinationTable">
+  <table>
+    <thead>
+      <th>תאריך חיסון</th>
+      <th>יצרן</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of currentVaccinations">
+        <td>{{ v.date_vac | date : "MM/dd/yyyy" }}<br /></td>
+        <td>{{ v.manufacturer }}<br /></td>
+      </tr>
+      <td>
+        <div>
+          <input
+            [(ngModel)]="newVaccine.date_vac"
+            required
+            name="date_vac"
+            #date_vac="ngModel"
+            type="date"
+          /><br />
+          <input
+            [(ngModel)]="newVaccine.manufacturer"
+            required
+            name="manufacturer"
+            #manufacturer="ngModel"
+            type="text"
+          /><br />
+        </div>
+        <div>
+          <button
+            *ngIf="currentVaccinations.length < 4"
+            (click)="addVaccine()"
+            [disabled]="!date_vac.valid || !manufacturer.valid"
+          >
+            הוסף חיסון
+          </button>
+        </div>
+      </td>
+    </tbody>
+  </table>
+</ng-container>
+
+<app-edit-person
+  [person]="personToEdit"
+  (personUpdate)="updatePersonList($event)"
+></app-edit-person>
+
+<p>חברי קופה שאינם מחוסנים כלל: {{ GetNumNotVac() }}</p>

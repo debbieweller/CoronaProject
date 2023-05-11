@@ -1,0 +1,145 @@
+<div *ngIf="person">
+  <h2>{{ person.f_name }}</h2>
+  <div>
+    שם פרטי
+    <input
+      [(ngModel)]="person.f_name"
+      required
+      name="f_name"
+      #f_name="ngModel"
+      placeholder="שדה חובה"
+    />
+  </div>
+
+  <div>
+    שם משפחה
+    <input
+      [(ngModel)]="person.l_name"
+      required
+      name="l_name"
+      #l_name="ngModel"
+      placeholder="שדה חובה"
+    />
+  </div>
+  <div>
+    ת"ז
+    <input
+      [(ngModel)]="person.id"
+      required
+      name="id"
+      #id="ngModel"
+      placeholder="שדה חובה"
+      pattern="[0-9]*"
+      title="נא להזין מספרים בלבד"
+    />
+  </div>
+  <div>
+    עיר
+    <input
+      [(ngModel)]="person.city"
+      required
+      name="city"
+      #city="ngModel"
+      placeholder="שדה חובה"
+    />
+  </div>
+  <div>
+    רחוב
+    <input
+      [(ngModel)]="person.street"
+      required
+      name="street"
+      #street="ngModel"
+      placeholder="שדה חובה"
+    />
+  </div>
+  <div>
+    מספר
+    <input
+      [(ngModel)]="person.street_num"
+      required
+      name="street_num"
+      #street_num="ngModel"
+      placeholder="שדה חובה"
+    />
+  </div>
+  <div>
+    תאריך לידה
+    <input
+      [(ngModel)]="person.date_birth"
+      required
+      name="date_birth"
+      #date_birth="ngModel"
+      type="date"
+      placeholder="שדה חובה"
+      [max]="getCurrentDate()"
+    />
+  </div>
+  <div>
+    טלפון
+    <input
+      [(ngModel)]="person.phone"
+      required
+      name="phone"
+      #phone="ngModel"
+      placeholder="שדה חובה"
+      pattern="[0-9]*"
+      title="נא להזין מספרים בלבד"
+    />
+  </div>
+  <div>
+    פלאפון
+    <input
+      [(ngModel)]="person.cell_phone"
+      name="cell_phone"
+      #cell_phone="ngModel"
+      pattern="[0-9]*"
+      title="נא להזין מספרים בלבד"
+    />
+  </div>
+  <div>
+    תמונה
+    <input
+      [(ngModel)]="person.picture"
+      name="picture"
+      #picture="ngModel"
+      placeholder="url"
+    />
+  </div>
+  <div>
+    מועד קבלת תוצאה חיובית
+    <input
+      [(ngModel)]="person.date_positive"
+      name="date_positive"
+      #date_positive="ngModel"
+      type="date"
+      [max]="getCurrentDate()"
+    />
+  </div>
+  <div>
+    מועד החלמה מקורנה
+    <input
+      [(ngModel)]="person.date_recovery"
+      name="date_recovery"
+      #date_recovery="ngModel"
+      type="date"
+      [max]="getCurrentDate()"
+    />
+  </div>
+
+  <button
+    (click)="CreatePerson(person)"
+    [disabled]="
+      !f_name.valid ||
+      !l_name.valid ||
+      !id.valid ||
+      !city.valid ||
+      !street.valid ||
+      !street_num.valid ||
+      !date_birth.valid ||
+      !phone.valid
+    "
+  >
+    צור
+  </button>
+</div>
